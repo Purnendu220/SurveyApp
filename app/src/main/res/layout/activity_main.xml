@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearlayoutInsideScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="false"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/margin_30"
+            android:layout_marginRight="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_edt_house_no"
+                style="@style/common_textview_small_with_border"
+                android:tag="2">
+
+                <EditText
+                    android:id="@+id/edt_house_no"
+                    style="@style/common_textview_normal_app_color_singleline"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:hint="@string/house_no"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_edt_family_no"
+                style="@style/common_textview_small_with_border"
+                android:layout_marginTop="@dimen/margin_10"
+                android:tag="2">
+
+                <EditText
+                    android:id="@+id/edt_family_no"
+                    style="@style/common_textview_normal_app_color_singleline"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:hint="@string/family_no"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_add_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/common_button_layout_selected_appcolor"
+                    android:text="@string/family_member" />
+
+                <LinearLayout
+                    android:id="@+id/familymemberlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/family_cast_layout"
+                style="@style/spinner_style"
+
+                >
+
+                <ImageView
+                    android:id="@+id/family_cast_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_10"
+                    android:src="@drawable/down_arrow" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/family_cast_image"
+                    android:background="@color/grey" />
+
+                <Spinner
+                    android:id="@+id/spinner_family_cast"
+                    style="@style/spinner_style_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:visibility="visible"></Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/family_siksha_layout"
+                style="@style/spinner_style"
+
+                >
+
+                <ImageView
+                    android:id="@+id/family_siksha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_10"
+                    android:src="@drawable/down_arrow" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/family_siksha"
+                    android:background="@color/grey" />
+
+                <Spinner
+                    android:id="@+id/spinner_family_siksha"
+                    style="@style/spinner_style_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:visibility="visible"></Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/family_bussiness_layout"
+                style="@style/spinner_style"
+
+                >
+
+                <ImageView
+                    android:id="@+id/family_bussiness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_10"
+                    android:src="@drawable/down_arrow" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/family_bussiness"
+                    android:background="@color/grey" />
+
+                <Spinner
+                    android:id="@+id/spinner_family_bussiness"
+                    style="@style/spinner_style_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:visibility="visible"></Spinner>
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_edt_mobilenumber"
+                style="@style/common_textview_small_with_border"
+                android:layout_marginTop="@dimen/margin_10"
+                android:tag="2">
+
+                <EditText
+                    android:id="@+id/edt_mobile_no"
+                    style="@style/common_textview_normal_app_color_singleline"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:hint="@string/mobile_no"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_register"
+                style="@style/common_button_layout_selected_appcolor"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_20"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text16size"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,74 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="common_textview_small_with_border" parent="TextAppearance.Design.Hint">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_50</item>
+        <item name="android:textSize">@dimen/margin_12</item>
+        <item name="android:textColorHint">@color/hint_color</item>
+        <item name="colorAccent">@color/hint_color</item>
+        <item name="android:background">@drawable/relative_layout_border</item>
+        <item name="android:paddingLeft">@dimen/margin_10</item>
+        <item name="android:paddingTop">@dimen/margin_5</item>
+        <item name="android:paddingBottom">@dimen/margin_5</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="common_textview_normal_app_color_singleline" parent="common_textview_normal_app_color">
+        <item name="android:textColorHint">@color/hint_color</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingTop">@dimen/margin_2</item>
+        <item name="android:maxLength">30</item>
+
+    </style>
+    <style name="common_textview_normal_app_color" parent="@style/common_textview_big_app_color">
+        <item name="android:textSize">@dimen/margin_16</item>
+    </style>
+    <style name="common_textview_big_app_color">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/margin_18</item>
+        <item name="android:textColor">@color/app_color</item>
+    </style>
+    <style name="spinner_style_two">
+        <item name="android:divider">@color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:popupBackground">@color/app_color</item>
+    </style>
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_48</item>
+        <item name="android:layout_marginTop">@dimen/margin_15</item>
+        <item name="android:background">@drawable/relative_layout_round_border</item>
+    </style>
+    <style name="common_button_layout_selected_appcolor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_50</item>
+        <item name="android:elevation">@dimen/margin_2</item>
+        <item name="android:background">@drawable/custom_ripple_border</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/margin_16</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="AdvanceDialogTheme" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+
+    </style>
+</resources>
