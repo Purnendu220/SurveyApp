@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="@color/grey"
+    android:layout_marginBottom="@dimen/margin_5"
+    android:visibility="gone"
+    />
+    <TextView
+        android:id="@+id/spinnerTV"
+        style="@style/common_textview_normal_app_color"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_5"
+        android:paddingTop="@dimen/margin_15"
+        android:gravity="left|center|center_vertical"
+        android:layout_gravity="center_vertical"
+        android:text="Item"
+        android:tag="0"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_light"
+        android:layout_marginTop="@dimen/margin_5"
+        />
+</LinearLayout>

@@ -1,19 +1,31 @@
 package com.survey;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Purnendu Mishra on 4/13/2017.
  */
 
 public class FamilyMemberDetail {
-    String mMemberName;
-    String mMemberRelationWithOwner;
-    String mMemberSex;
-    String mMemberAge;
-    String mMemberDob;
-    String mMemberEducation;
-    String mMemberAadharNo;
 
-    public FamilyMemberDetail(String mMemberName, String mMemberRelationWithOwner, String mMemberSex, String mMemberAge, String mMemberDob, String mMemberEducation, String mMemberAadharNo) {
+    @SerializedName("mMemberName")
+    String mMemberName;
+    @SerializedName("mMemberRelationWithOwner")
+    String mMemberRelationWithOwner;
+    @SerializedName("mMemberSex")
+    String mMemberSex;
+    @SerializedName("mMemberAge")
+    String mMemberAge;
+    @SerializedName("mMemberDob")
+    String mMemberDob;
+    @SerializedName("mMemberEducation")
+    String mMemberEducation;
+    @SerializedName("mMemberAadharNo")
+    String mMemberAadharNo;
+    @SerializedName("mMemberFemailType")
+    String mMemberFemailType;
+
+    public FamilyMemberDetail(String mMemberName, String mMemberRelationWithOwner, String mMemberSex, String mMemberAge, String mMemberDob, String mMemberEducation, String mMemberAadharNo,String mMemberFemailType) {
         this.mMemberName = mMemberName;
         this.mMemberRelationWithOwner = mMemberRelationWithOwner;
         this.mMemberSex = mMemberSex;
@@ -21,6 +33,15 @@ public class FamilyMemberDetail {
         this.mMemberDob = mMemberDob;
         this.mMemberEducation = mMemberEducation;
         this.mMemberAadharNo = mMemberAadharNo;
+        this.mMemberFemailType=mMemberFemailType;
+    }
+
+    public String getmMemberFemailType() {
+        return mMemberFemailType;
+    }
+
+    public void setmMemberFemailType(String mMemberFemailType) {
+        this.mMemberFemailType = mMemberFemailType;
     }
 
     public String getmMemberName() {

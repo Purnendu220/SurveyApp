@@ -75,7 +75,7 @@
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/family_cast_image"
+            android:layout_toLeftOf="@+id/member_female"
             android:background="@color/grey" />
 
         <Spinner
@@ -177,6 +177,7 @@
             android:hint="@string/member_dob"
             android:inputType="text"
             android:enabled="false"
+            android:focusable="false"
             />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -190,7 +191,7 @@
             android:layout_marginLeft="@dimen/margin_5"
             android:layout_marginRight="@dimen/margin_5"
             android:hint="@string/member_aadhar"
-            android:inputType="text"
+            android:inputType="number"
             />
     </android.support.design.widget.TextInputLayout>
     <LinearLayout
