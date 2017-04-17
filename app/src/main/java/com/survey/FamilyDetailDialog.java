@@ -3,6 +3,7 @@ package com.survey;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -34,6 +35,8 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
     ArrayAdapter<String> adapterGender, adapterFemale, adapterRelation, adapterEducation;
     private int mSelectedGender = 0, mSelectedFemaleType = 0, mSelectedRelation = 0, mSelectedEducation = 0;
     FamilyMemberDetail detail;
+    boolean showdatepicker=true;
+    DatePickerFragmentDialog newFragment;
 
     public FamilyDetailDialog(Context context) {
         super(context, R.style.AdvanceDialogTheme);
@@ -61,7 +64,6 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
     private void Init() {
         setContentView(R.layout.family_member_detail);
         setCancelable(false);
-
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.dimAmount = 0.3f; // Dim level. 0.0 - no dim, 1.0 - completely opaque
         getWindow().setAttributes(lp);
@@ -94,6 +96,8 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
         spinner_member_female.setAdapter(adapterFemale);
         spinner_member_relation.setAdapter(adapterRelation);
         spinner_education_relation.setAdapter(adapterEducation);
+         newFragment = new DatePickerFragmentDialog(mContext);
+        newFragment.setDateSelectionListener(FamilyDetailDialog.this);
         setListener();
 
 
@@ -112,32 +116,39 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
                     dismiss();
                 }
                 else{
-                    callbackInterface.onFailure("try Again");
+                    callbackInterface.onFailure(Constants.TRY_AGAIN);
                 }
 
             }
         });
-        input_layout_edt_memberdob.setOnClickListener(new View.OnClickListener() {
+
+
+        edt_memberdob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                DatePickerFragmentDialog newFragment = new DatePickerFragmentDialog(mContext);
-                newFragment.setDateSelectionListener(FamilyDetailDialog.this);
-                newFragment.show();
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if(hasFocus&&!newFragment.isShowing()){
+                    newFragment.show();
+                }
+                else{
+                    if(newFragment.isShowing()){
+                        newFragment.dismiss();
+                    }
+                }
             }
         });
-        edt_memberdob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerFragmentDialog newFragment = new DatePickerFragmentDialog(mContext);
-                newFragment.setDateSelectionListener(FamilyDetailDialog.this);
-                newFragment.show();
-            }
-        });
+
+
+
     }
 
     @Override
     public void onDateSelected(String date) {
         edt_memberdob.setText(date);
+        edt_memberaadhar.requestFocus();
+        if(newFragment.isShowing()){
+            newFragment.dismiss();
+        }
     }
 
     private void setListener() {
@@ -202,17 +213,21 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
         String aadhar = edt_memberaadhar.getText().toString();
         String gender = "", femaletype = "", relation = "", education = "";
         if (StringUtils.isEmpty(name)) {
+            AlertUtils.getInstance().showToast(mContext,Constants.FILL_MEMBER_NAME);
             return false;
         }
         if (StringUtils.isEmpty(age) && StringUtils.isEmpty(dob)) {
+            AlertUtils.getInstance().showToast(mContext,Constants.FILL_DOB_OR_AGE);
             return false;
         }
         if (mSelectedGender < 1) {
+            AlertUtils.getInstance().showToast(mContext,Constants.FILL_SEX);
             return false;
         } else {
             gender = spinner_member_gender.getSelectedItem().toString();
             if (mSelectedGender == 2) {
                 if (mSelectedFemaleType < 1) {
+                    AlertUtils.getInstance().showToast(mContext,Constants.FILL_FEMALE_TYPE);
                     return false;
                 } else {
                     femaletype = spinner_member_female.getSelectedItem().toString();
@@ -221,12 +236,13 @@ public class FamilyDetailDialog extends Dialog implements DatePickerFragmentDial
             }
         }
         if (mSelectedRelation < 1) {
+            AlertUtils.getInstance().showToast(mContext,Constants.FILL_RELATION);
             return false;
         } else {
             relation = spinner_member_relation.getSelectedItem().toString();
         }
         if (mSelectedEducation < 1) {
-            return false;
+            education="";
         } else {
             education = spinner_education_relation.getSelectedItem().toString();
 

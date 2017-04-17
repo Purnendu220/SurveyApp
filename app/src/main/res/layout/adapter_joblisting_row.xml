@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/parentRL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin_2"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_15"
+            android:orientation="horizontal"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    >
+
+
+                    <TextView
+                        android:id="@+id/nickNameHintTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/family_no"
+                        android:tag="0"
+                        android:textColor="@color/black"
+                        android:gravity="top"
+                        android:textSize="@dimen/text18size"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_posted_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Posted 7 days ago"
+                        android:textColor="@color/activity_choose_signin_signup_action_textview_16px"
+                        android:textSize="@dimen/text14size"
+                        android:tag="1"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:layout_below="@+id/nickNameHintTV"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_light"
+                    android:layout_marginTop="@dimen/margin_10"
+
+                    />
+                <LinearLayout
+                    android:id="@+id/jobtypeLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/desTV"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    >
+
+
+                    <TextView
+                        android:id="@+id/jobTimingTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textColor="@color/activity_choose_signin_signup_action_textview_16px"
+                        android:tag="2"
+                        android:text="Full Time(Mon-Fri)"
+                        android:textSize="@dimen/text14size"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/compentationLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/desTV"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/compentationTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="$150/hr"
+                        android:tag="3"
+                        android:textSize="@dimen/text14size"
+                        android:textColor="@color/activity_choose_signin_signup_action_textview_16px"
+
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_7"
+        android:background="@color/card_shadow"
+        android:visibility="visible"
+        />
+</LinearLayout>

@@ -1,11 +1,18 @@
 package com.survey;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myArrayListCast = Arrays.asList(getResources().getStringArray(R.array.gender_list));
+        myArrayListCast = Arrays.asList(getResources().getStringArray(R.array.cast_type));
         mArraryListEducation = Arrays.asList(getResources().getStringArray(R.array.education_list));
-        mArrayListBussiness = Arrays.asList(getResources().getStringArray(R.array.relation_list));
+        mArrayListBussiness = Arrays.asList(getResources().getStringArray(R.array.bussiness_type));
         adapterCast = new ArrayAdapter<String>(this, R.layout.adaptor_spinner_row,R.id.spinnerTV, myArrayListCast);
         adapterEducation = new ArrayAdapter<String>(this, R.layout.adaptor_spinner_row,R.id.spinnerTV, mArraryListEducation);
         adapterBussiness = new ArrayAdapter<String>(this, R.layout.adaptor_spinner_row,R.id.spinnerTV, mArrayListBussiness);
@@ -73,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setListener();
         CollectionPageTableDao collectionPageTableDao=new CollectionPageTableDao(DatabaseHelper.getDatabase());
         Log.e("hdhfgdsj",collectionPageTableDao.getSize()+" this is size");
+        Intent i=new Intent(getApplicationContext(),YourService.class);
+        startService(i);
+        if(collectionPageTableDao.getSize()>0){
 
+
+        }
 
     }
     private void setListener() {
@@ -126,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_register:
                 if(ValidateForm()){
+
                     finish();
                     startActivity(getIntent());
                 }
@@ -140,38 +157,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String mobile_no=edt_mobile_no.getText().toString();
         String cast="",education="",bussiness="",memberdetailstring="",ownername="";
         if(StringUtils.isEmpty(Houseno)){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_HOUSE_NO);
             return false;
         }
         if(StringUtils.isEmpty(familyno)){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_FAMILY_MEMBER);
             return false;
         }
         if(StringUtils.isEmpty(mobile_no)){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_MOBILE_NO);
             return false;
         }
         if(mSelectedCast<1){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_CAST);
             return false;
         }
         else{
             cast=spinner_family_cast.getSelectedItem().toString();
         }
         if(mSelectedSiksha<1){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_EDUCATION);
             return false;
         }
         else{
             education=spinner_family_siksha.getSelectedItem().toString();
         }
         if(mSelectecbussiness<1){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_BUSSINESS);
             return false;
         }
         else{
             bussiness=spinner_family_bussiness.getSelectedItem().toString();
         }
         if(memberdetail.size()==0){
+            AlertUtils.getInstance().showToast(this,Constants.FILL_FAMILY_MEMBER);
             return false;
         }else{
            for(int i=0;i<memberdetail.size();i++){
                FamilyMemberDetail detail=memberdetail.get(i);
-               memberdetailstring=memberdetailstring+GsonManager.toJSON(detail)+"-";
+               memberdetailstring=memberdetailstring+GsonManager.toJSON(detail)+",";
                MemberdetailTableModel data=new MemberdetailTableModel();
                data.setFamily_house_no(Houseno);
                data.setFamily_no(familyno);
@@ -196,12 +220,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
         try{
-            CollectionPageTableModel collectionPageTableModel=new CollectionPageTableModel(Houseno,familyno,memberdetailstring,cast,education,bussiness,mobile_no,System.currentTimeMillis()+"",memberdetail.size()+"",ownername,System.currentTimeMillis()+"");
+            CollectionPageTableModel collectionPageTableModel=new CollectionPageTableModel(Houseno,familyno,memberdetailstring,cast,education,bussiness,mobile_no,DateUtils.getDateTime(System.currentTimeMillis(),DateUtils.FORMAT1)+"",memberdetail.size()+"",ownername,System.currentTimeMillis()+"");
             CollectionPageTableDao collectionPageTableDao=new CollectionPageTableDao(DatabaseHelper.getDatabase());
             collectionPageTableDao.insert(collectionPageTableModel);
-
             MemberDetailDao memberDetailDao=new MemberDetailDao(DatabaseHelper.getDatabase());
             memberDetailDao.insertBulk(memberdetailtabledata);
+            sendmailtask task=new sendmailtask(collectionPageTableModel);
+            task.execute();
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -222,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void loadJobDetail() {
+        familymemberlist.removeAllViews();
         for (int i = 0; i < memberdetail.size(); i++) {
             FamilyMemberDetail detail=memberdetail.get(i);
             final View childView = LayoutInflater.from(this).inflate(R.layout.memberdetailfilled, null);
@@ -247,10 +273,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(detail.getmMemberAadharNo()!=null&&detail.getmMemberAadharNo().length()>0)
                 text_aadhar.setText(detail.getmMemberAadharNo());
             if(detail.getmMemberEducation()!=null&&detail.getmMemberEducation().length()>0)
-                text_education.setText(detail.getmMemberAadharNo());
-
-
+                text_education.setText(detail.getmMemberEducation());
             familymemberlist.addView(childView);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Constants.ARE_YOU_SURE)
+                .setCancelable(false)
+                .setPositiveButton(Constants.YES, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //finish();
+                        MainActivity.this.onSuperBackPressed();
+                        //super.onBackPressed();
+                    }
+                })
+                .setNegativeButton(Constants.NO, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    public void onSuperBackPressed(){
+        super.onBackPressed();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.item_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        super.onOptionsItemSelected(item);
+
+        switch(item.getItemId()){
+            case R.id.phone:
+                Intent i=new Intent(this,SurveyDetail.class);
+                startActivity(i);
+                break;
+        }
+        return true;
+
+    }
+
+    class sendmailtask extends AsyncTask<Void,Void,Void>{
+
+        CollectionPageTableModel message;
+
+        public sendmailtask(CollectionPageTableModel message) {
+            this.message = message;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            RefrenceWrapper.getRefrenceWrapper(MainActivity.this).getmServiceCallHandler().userRegistration(MainActivity.this,message);
+            return null;
         }
     }
 

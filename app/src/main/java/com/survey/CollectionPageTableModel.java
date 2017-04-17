@@ -1,20 +1,33 @@
 package com.survey;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by purnendu on 4/14/2017.
  */
 
 public class CollectionPageTableModel {
+    @SerializedName("family_house_no")
     String family_house_no;
+    @SerializedName("family_no")
     String family_no;
+    @SerializedName("family_members_detail")
     String family_members_detail ;
+    @SerializedName("family_cast")
     String family_cast;
+    @SerializedName("family_education")
     String family_education;
+    @SerializedName("family_bissiness")
     String family_bissiness ;
+    @SerializedName("family_mobile_no")
     String family_mobile_no ;
+    @SerializedName("family_date")
     String family_date ;
+    @SerializedName("family_member_count")
     String family_member_count ;
+    @SerializedName("family_owner_name")
     String family_owner_name;
+    @SerializedName("family_time")
     String family_time;
 
     public CollectionPageTableModel(String family_house_no, String family_no, String family_members_detail, String family_cast, String family_education, String family_bissiness, String family_mobile_no, String family_date, String family_member_count, String family_owner_name, String family_time) {

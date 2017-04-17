@@ -43,11 +43,11 @@ public class DatePickerFragmentDialog extends Dialog implements  View.OnClickLis
 
     private void Init(){
         setContentView(R.layout.dialog_date_picker);
-        setCancelable(false);
+        setCancelable(true);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.dimAmount = 0.3f; // Dim level. 0.0 - no dim, 1.0 - completely opaque
         getWindow().setAttributes(lp);
-        setCanceledOnTouchOutside(false);
+        setCanceledOnTouchOutside(true);
         mDatePicker=(DatePicker)findViewById(R.id.date_picker);
         mButtonOK = (Button)findViewById(R.id.okBTN);
         mButtonOK.setOnClickListener(this);

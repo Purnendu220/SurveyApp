@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#D98777</color>
+    <color name="colorPrimaryDark">#D98777</color>
+    <color name="colorAccent">#D98777</color>
 
     <color name="app_color">#D98777</color>
     <color name="find_staffing_spinner_textcolor">#A8A4A5</color>

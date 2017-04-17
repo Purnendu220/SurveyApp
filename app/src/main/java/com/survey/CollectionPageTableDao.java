@@ -38,7 +38,7 @@ public class CollectionPageTableDao extends AbsDAO<CollectionPageTableModel> {
 
             data.setFamily_education(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_education)));
             data.setFamily_bissiness(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_bissiness)));
-            data.setFamily_no(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_mobile_no)));
+            data.setFamily_mobile_no(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_mobile_no)));
             data.setFamily_date(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_date)));
 
             data.setFamily_member_count(cursor.getString(cursor.getColumnIndex(CollectionPageTable.CollectionPageColumns.family_member_count)));

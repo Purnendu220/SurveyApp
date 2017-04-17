@@ -175,7 +175,9 @@
                     android:layout_marginLeft="@dimen/margin_5"
                     android:layout_marginRight="@dimen/margin_5"
                     android:hint="@string/mobile_no"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="11"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <Button

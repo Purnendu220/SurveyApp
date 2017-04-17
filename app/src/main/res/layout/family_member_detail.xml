@@ -24,7 +24,9 @@
             android:layout_marginLeft="@dimen/margin_5"
             android:layout_marginRight="@dimen/margin_5"
             android:hint="@string/member_name"
-            android:inputType="text" />
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            />
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
@@ -162,7 +164,10 @@
             android:layout_marginLeft="@dimen/margin_5"
             android:layout_marginRight="@dimen/margin_5"
             android:hint="@string/member_age"
-            android:inputType="number" />
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:maxLength="2"
+            />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_edt_memberdob"
@@ -176,9 +181,9 @@
             android:layout_marginRight="@dimen/margin_5"
             android:hint="@string/member_dob"
             android:inputType="text"
-            android:enabled="false"
-            android:focusable="false"
+
             />
+
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_edt_memberaadhar"
@@ -192,6 +197,8 @@
             android:layout_marginRight="@dimen/margin_5"
             android:hint="@string/member_aadhar"
             android:inputType="number"
+            android:imeOptions="actionDone"
+            android:maxLength="16"
             />
     </android.support.design.widget.TextInputLayout>
     <LinearLayout
