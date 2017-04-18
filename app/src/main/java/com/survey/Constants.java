@@ -25,7 +25,8 @@ public class Constants {
     public static String FAMILY_COUNT="सदस्यों की संख्या";
     public static String FAMILY_MEMBER="सदस्यों का विवरन";
     public static String FAMILY_DATE="समय";
-
+    public static String READ_PHONE_STATE = "read_phone_state";
+    public static final int REQUEST_ENABLE = 1;
 
 
 }

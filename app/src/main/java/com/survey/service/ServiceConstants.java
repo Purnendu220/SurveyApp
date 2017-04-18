@@ -16,6 +16,7 @@ public class ServiceConstants {
     public static final String family_no="family_no";
     public static final String owner_name="owner_name";
     public static final String family_time="family_time";
+    public static final String device_id="device_id";
 
     public interface WebConstants {
 

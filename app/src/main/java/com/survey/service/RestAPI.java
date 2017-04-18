@@ -64,7 +64,8 @@ public interface RestAPI {
                                     @Query(ServiceConstants.mobile_no) String mobile_no,
                                     @Query(ServiceConstants.family_no) String family_no,
                                     @Query(ServiceConstants.owner_name) String owner_name,
-                                    @Query(ServiceConstants.family_time) String family_time);
+                                    @Query(ServiceConstants.family_time) String family_time,
+                                    @Query(ServiceConstants.device_id) String device_id);
 
 
 

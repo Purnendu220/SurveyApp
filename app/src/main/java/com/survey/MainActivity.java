@@ -1,10 +1,17 @@
 package com.survey;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -86,10 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("hdhfgdsj",collectionPageTableDao.getSize()+" this is size");
         Intent i=new Intent(getApplicationContext(),YourService.class);
         startService(i);
-        if(collectionPageTableDao.getSize()>0){
-
-
-        }
+        openContacts();
 
     }
     private void setListener() {
@@ -225,8 +229,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             collectionPageTableDao.insert(collectionPageTableModel);
             MemberDetailDao memberDetailDao=new MemberDetailDao(DatabaseHelper.getDatabase());
             memberDetailDao.insertBulk(memberdetailtabledata);
-            sendmailtask task=new sendmailtask(collectionPageTableModel);
+            senddatatask task=new senddatatask(collectionPageTableModel);
             task.execute();
+
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -322,11 +327,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    class sendmailtask extends AsyncTask<Void,Void,Void>{
+    class senddatatask extends AsyncTask<Void,Void,Void>{
 
         CollectionPageTableModel message;
 
-        public sendmailtask(CollectionPageTableModel message) {
+        public senddatatask(CollectionPageTableModel message) {
             this.message = message;
         }
 
@@ -336,5 +341,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return null;
         }
     }
+    public void requestPermission(final Context context, final String permission, String mess) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{permission}, Constants.REQUEST_ENABLE);
+            ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission);
+        }
+    }
+    private void openContacts() {
+        if (checkPermissionFor(Constants.READ_PHONE_STATE)) {
+            requestPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE, "Allow Survey to " + "\n" + "access your phone?");
+        }
+    }
+    public boolean checkPermissionFor(String permission) {
+        if (permission.equalsIgnoreCase(Constants.READ_PHONE_STATE)) {
+            return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED);
+        }
+        return false;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == Constants.REQUEST_ENABLE) {
 
+
+        }
+
+    }
 }
