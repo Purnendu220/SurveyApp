@@ -66,8 +66,19 @@ public interface RestAPI {
                                     @Query(ServiceConstants.owner_name) String owner_name,
                                     @Query(ServiceConstants.family_time) String family_time,
                                     @Query(ServiceConstants.device_id) String device_id);
-
-
+    @Headers("Content-Type: text/plain; charset=utf-8")
+    @POST(ServiceConstants.MEMBER_IN_REQUEST)
+    Call<ServiceResponse> memberdetail(@Query(ServiceConstants.family_no) String family_bussiness,
+                                    @Query(ServiceConstants.house_no) String family_cast,
+                                    @Query(ServiceConstants.mMemberAadharNo) String mMemberAadharNo,
+                                    @Query(ServiceConstants.mMemberAge) String mMemberAge,
+                                    @Query(ServiceConstants.mMemberDob) String mMemberDob,
+                                    @Query(ServiceConstants.mMemberEducation) String mMemberEducation,
+                                    @Query(ServiceConstants.mMemberFemailType) String mMemberFemailType,
+                                    @Query(ServiceConstants.mMemberName) String mMemberName,
+                                    @Query(ServiceConstants.mMemberRelationWithOwner) String mMemberRelationWithOwner,
+                                    @Query(ServiceConstants.mMemberSex) String mMemberSex,
+                                    @Query(ServiceConstants.device_id) String device_id);
 
 
 }

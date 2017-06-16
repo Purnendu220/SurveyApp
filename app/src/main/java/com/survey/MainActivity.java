@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_add_member.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         setListener();
-        CollectionPageTableDao collectionPageTableDao=new CollectionPageTableDao(DatabaseHelper.getDatabase());
-        Log.e("hdhfgdsj",collectionPageTableDao.getSize()+" this is size");
+
         Intent i=new Intent(getApplicationContext(),YourService.class);
         startService(i);
         openContacts();
@@ -229,8 +228,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             collectionPageTableDao.insert(collectionPageTableModel);
             MemberDetailDao memberDetailDao=new MemberDetailDao(DatabaseHelper.getDatabase());
             memberDetailDao.insertBulk(memberdetailtabledata);
-            senddatatask task=new senddatatask(collectionPageTableModel);
-            task.execute();
+            if(checkInternet()){
+                senddatatask task=new senddatatask(collectionPageTableModel);
+                task.execute();
+            }
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -341,6 +343,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return null;
         }
     }
+/*    class sendmemberdatatask extends AsyncTask<Void,Void,Void>{
+        ArrayList<MemberdetailTableModel> memberdetailtabledata;
+
+        public sendmemberdatatask(ArrayList<MemberdetailTableModel> memberdetailtabledata) {
+            this.memberdetailtabledata=memberdetailtabledata;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(int i=0;i<memberdetailtabledata.size();i++){
+                RefrenceWrapper.getRefrenceWrapper(MainActivity.this).getmServiceCallHandler().memberdetail(MainActivity.this,memberdetailtabledata.get(i));
+
+            }
+            return null;
+        }
+    }*/
     public void requestPermission(final Context context, final String permission, String mess) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{permission}, Constants.REQUEST_ENABLE);
@@ -365,5 +383,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    }
+
+    public boolean checkInternet() {
+        try {
+            if (NetworkUtils.isConnectingToInternet(MainActivity.this)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            Syso.error(e);
+            return false;
+        }
     }
 }

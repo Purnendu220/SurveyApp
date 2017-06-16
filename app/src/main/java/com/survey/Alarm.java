@@ -10,6 +10,7 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Alarm extends BroadcastReceiver {
@@ -22,8 +23,13 @@ public class Alarm extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
         CollectionPageTableDao collectionPageTableDao = new CollectionPageTableDao(DatabaseHelper.getDatabase());
+        MemberDetailDao dao=new MemberDetailDao(DatabaseHelper.getDatabase());
         Log.e("hdhfgdsj", collectionPageTableDao.getSize() + " this is size");
         if (checkInternet()) {
+            try{
+
+
+
             if (collectionPageTableDao.getSize() > 0) {
                 String userdetail = "";
                 List<CollectionPageTableModel> nlist = collectionPageTableDao.getList();
@@ -38,13 +44,37 @@ public class Alarm extends BroadcastReceiver {
                         task.execute();
 
                 }
-                sendmailtask task = new sendmailtask(userdetail);
-                task.execute();
+
+               /* sendmailtask task = new sendmailtask(userdetail);
+                task.execute();*/
+            }
+            sendmemberdatatask task=new sendmemberdatatask(dao.getList());
+            task.execute();
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
         wl.release();
     }
+    class sendmemberdatatask extends AsyncTask<Void,Void,Void>{
+        List<MemberdetailTableModel> memberdetailtabledata;
 
+        public sendmemberdatatask(List<MemberdetailTableModel> memberdetailtabledata) {
+            this.memberdetailtabledata=memberdetailtabledata;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(int i=0;i<memberdetailtabledata.size();i++){
+                if (!AppPreference.getInstance().getstatus(memberdetailtabledata.get(i).getId()+""+memberdetailtabledata.get(i).getId())) {
+                    RefrenceWrapper.getRefrenceWrapper(mContext).getmServiceCallHandler().memberdetail(mContext,memberdetailtabledata.get(i));
+                }
+
+
+            }
+            return null;
+        }
+    }
     public void setAlarm(Context context) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarm.class);

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.survey.AppPreference;
 import com.survey.CollectionPageTableModel;
+import com.survey.MemberdetailTableModel;
 import com.survey.RefrenceWrapper;
 
 import java.io.File;
@@ -55,7 +56,38 @@ public class ServiceCallsUtils {
 
     }
 
+    public void memberdetail(final Context mContext, final MemberdetailTableModel model) {
+        refrenceWrapper = RefrenceWrapper.getRefrenceWrapper(mContext);
+        Call<ServiceResponse> userSignUpCall = refrenceWrapper.getService().memberdetail(
+                model.getFamily_no(),
+                model.getFamily_house_no(),
+                model.getMember_aadhar(),
+                model.getMember_age(),
+                model.getMember_dob(),
+                model.getMember_education(),
+                model.getMember_femail_type(),
+                model.getMember_name(),
+                model.getMember_relation(),
+                model.getMember_sex(),
+               getIMEI(mContext));
+        userSignUpCall.enqueue(new CustomCallBacks<ServiceResponse>(mContext, false) {
+            @Override
+            public void onSucess(Call<ServiceResponse> call, Response<ServiceResponse> response) {
+                Log.e("TAG","Service---Success->"+response.body().getStatus());
+                if(!response.body().getStatus()){
+                    AppPreference.getInstance().setStatus(model.getId()+""+model.getId());
 
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable arg0) {
+                Log.e("TAG","Service---failure->");
+                arg0.printStackTrace();
+            }
+        });
+
+    }
 
 
 

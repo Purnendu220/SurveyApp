@@ -16,6 +16,7 @@ public class MemberdetailTableModel {
     String member_dob;
     String member_aadhar;
     String member_time;
+    String id;
 
     public MemberdetailTableModel(String family_house_no, String family_no, String member_name, String member_sex, String member_femail_type, String member_relation, String member_education, String member_age, String member_dob, String member_aadhar, String member_time) {
         this.family_house_no = family_house_no;
@@ -32,6 +33,14 @@ public class MemberdetailTableModel {
     }
 
     public MemberdetailTableModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFamily_house_no() {

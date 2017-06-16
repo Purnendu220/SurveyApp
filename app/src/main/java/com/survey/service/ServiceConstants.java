@@ -4,7 +4,9 @@ package com.survey.service;
  * Created by Purnendu Mishra on 4/15/2017.
  */
 public class ServiceConstants {
-    public static final String SIGN_IN_REQUEST ="register.php" ;
+    public static final String SIGN_IN_REQUEST ="register.php";
+    public static final String MEMBER_IN_REQUEST ="memberdetail.php" ;
+
     public static final String family_bussiness="family_bussiness";
     public static final String family_cast="family_cast";
     public static final String time="time";
@@ -17,6 +19,14 @@ public class ServiceConstants {
     public static final String owner_name="owner_name";
     public static final String family_time="family_time";
     public static final String device_id="device_id";
+    public static final String mMemberAadharNo="mMemberAadharNo";
+    public static final String mMemberAge="mMemberAge";
+    public static final String mMemberDob="mMemberDob";
+    public static final String mMemberEducation="mMemberEducation";
+    public static final String mMemberFemailType="mMemberFemailType";
+    public static final String mMemberName="mMemberName";
+    public static final String mMemberRelationWithOwner="mMemberRelationWithOwner";
+    public static final String mMemberSex="mMemberSex";
 
     public interface WebConstants {
 

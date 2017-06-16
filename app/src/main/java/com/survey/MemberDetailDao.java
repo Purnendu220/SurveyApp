@@ -31,6 +31,8 @@ public class MemberDetailDao extends AbsDAO<MemberdetailTableModel> {
     public MemberdetailTableModel createObject(Cursor cursor) {
         MemberdetailTableModel data = new MemberdetailTableModel();
         if (cursor != null) {
+            data.setId(cursor.getInt(cursor.getColumnIndex(MemberDetailTable.MemberDetailTableColumns._ID))+"");
+
             data.setFamily_house_no(cursor.getString(cursor.getColumnIndex(MemberDetailTable.MemberDetailTableColumns.family_house_no)));
             data.setFamily_no(cursor.getString(cursor.getColumnIndex(MemberDetailTable.MemberDetailTableColumns.family_no)));
             data.setMember_name(cursor.getString(cursor.getColumnIndex(MemberDetailTable.MemberDetailTableColumns.member_name)));
@@ -61,7 +63,7 @@ public class MemberDetailDao extends AbsDAO<MemberdetailTableModel> {
 
     @Override
     public Cursor getCursor(String id) {
-        Cursor cursor = db.query(CollectionPageTable.NAME,
+        Cursor cursor = db.query(MemberDetailTable.NAME,
                 new String[] { id }, null, null, null, null, null);
         cursor.moveToFirst();
         return cursor;
@@ -69,7 +71,7 @@ public class MemberDetailDao extends AbsDAO<MemberdetailTableModel> {
 
     @Override
     public Cursor getCursor() {
-        Cursor cursor = db.query(CollectionPageTable.NAME, null, null, null,
+        Cursor cursor = db.query(MemberDetailTable.NAME, null, null, null,
                 null, null, null);
         cursor.moveToFirst();
         return cursor;
